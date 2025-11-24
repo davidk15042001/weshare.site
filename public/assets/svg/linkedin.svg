@@ -1,0 +1,8 @@
+<svg id="socials" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect id="Rectangle_3" data-name="Rectangle 3" width="48" height="48" rx="12" fill="#0077b5"/>
+  <g id="linkedin" transform="translate(12 12.974)">
+    <g id="Group_1002" data-name="Group 1002" transform="translate(0 0.026)">
+      <path id="Path_287" data-name="Path 287" d="M24,14.086v8.873H18.856V14.68c0-2.08-.744-3.5-2.606-3.5a2.815,2.815,0,0,0-2.639,1.882,3.516,3.516,0,0,0-.171,1.254v8.642H8.293s.07-14.021,0-15.475H13.44V9.678l-.034.051h.034V9.678a5.108,5.108,0,0,1,4.637-2.556C21.462,7.122,24,9.334,24,14.086ZM2.911.026a2.681,2.681,0,1,0-.067,5.347h.034A2.682,2.682,0,1,0,2.912.026ZM.305,22.959H5.45V7.485H.305Z" transform="translate(0 -0.026)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

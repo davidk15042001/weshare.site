@@ -1,0 +1,7 @@
+<svg id="move-layer-down" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17">
+  <g id="Group_100" data-name="Group 100">
+    <path id="Line_1" data-name="Line 1" d="M0,12a1,1,0,0,1-1-1V0A1,1,0,0,1,0-1,1,1,0,0,1,1,0V11A1,1,0,0,1,0,12Z" transform="translate(8 1)" fill="#3d3d3d"/>
+    <path id="Path_62" data-name="Path 62" d="M8.5,12.5a1,1,0,0,1-.707-.293l-5-5A1,1,0,0,1,4.207,5.793L8.5,10.086l4.293-4.293a1,1,0,0,1,1.414,1.414l-5,5A1,1,0,0,1,8.5,12.5Z" transform="translate(-0.5 0.5)" fill="#3d3d3d"/>
+    <path id="Line_2" data-name="Line 2" d="M14,1H0A1,1,0,0,1-1,0,1,1,0,0,1,0-1H14a1,1,0,0,1,1,1A1,1,0,0,1,14,1Z" transform="translate(1 16)" fill="#3d3d3d"/>
+  </g>
+</svg>

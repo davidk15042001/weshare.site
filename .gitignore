@@ -4,7 +4,6 @@
 public/css/app.dev.css
 public/js/app.dev.js
 /storage/*.key
-/storage/*
 /vendor
 package-lock.json
 .env

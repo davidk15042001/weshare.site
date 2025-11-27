@@ -9,7 +9,7 @@ function translate($text, $data = []){
     $translations = null;
 
     //dd(config('translations.content'));
-    
+
     if(!empty(config('translations.content'))){
         $translations = json_decode(config('translations.content'), true);
     }
@@ -28,7 +28,7 @@ function translate($text, $data = []){
             }
         }
     }
-    
+
     if(empty($translated)) $translated = $text;
 
     if(!empty($data)){
@@ -52,7 +52,7 @@ function text($obj, $lang = '')
     else{
         if(!empty($obj->def)) return trim($obj->def);
         if(!empty($obj->default)) return trim($obj->default);
-    } 
+    }
 }
 function price($obj, $lang = '')
 {
@@ -69,6 +69,12 @@ function price($obj, $lang = '')
     if (!empty($obj->{$currency[$lang]})) return trim($obj->{$currency[$lang]});
     else{
         if(!empty($obj->{$currency['def']})) return trim($obj->{$currency['def']});
-    } 
+    }
     return 0;
+}
+
+
+function generateTransactionCode()
+{
+    return 'TXN-' . strtoupper(uniqid()) . '-' . mt_rand(1000, 9999);
 }

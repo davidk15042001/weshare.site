@@ -40,4 +40,9 @@ return [
         'redirect' => env('FACEBOOK_CLIENT_REDIRECT'),
     ],
 
+    'company' =>[
+        'address' => env("COMPANY_ADDRESS"),
+        'tax_id' => env("COMPANY_TAXID")
+    ]
+
 ];

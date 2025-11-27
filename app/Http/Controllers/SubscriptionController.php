@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChangeSubscriptionRequest;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Plan;
+use App\Models\Transaction;
 use App\Service\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ use Stripe\Subscription;
 
 class SubscriptionController extends Controller
 {
-    
+
     public function index(Request $request, ProductService $product, $interval = 'yearly'){
 
         $p = function() use ($request){
@@ -31,7 +32,7 @@ class SubscriptionController extends Controller
                 return 'free';
             }
         };
-        
+
         $currency = getenv('CASHIER_CURRENCY', 'EUR');
         $locale = getenv('CASHIER_CURRENCY_LOCALE', 'de_DE');
 
@@ -49,7 +50,7 @@ class SubscriptionController extends Controller
             $pro->current = $p() == 'pro' ? true: false;
             $plans[] = $pro;
         }
-        
+
         $enterprise = Plan::where('slug', 'enterprise')->first();
         if($enterprise){
             $enterprise->fprice = $formatter->formatCurrency($enterprise->price, $currency);
@@ -74,8 +75,8 @@ class SubscriptionController extends Controller
     }
 
     public function show(){
-        
-        
+
+
     }
 
     public function store(SubscriptionRequest $request){
@@ -87,17 +88,42 @@ class SubscriptionController extends Controller
         $user->save();
 
         if($plan->stripe_plan){
+            $transaction = Transaction::create([
+                'user_id'           => auth()->id(),
+                'plan_id'           => $plan->id,
+                'transaction_code'  => generateTransactionCode(),
+                'gateway'           => 'stripe',
+                'amount'            => $plan->price,
+                'narration' => $plan->period. " Subscription",
+                "transaction_source" => "subscription",
+                "stripe_plan" => $plan->stripe_plan,
+                'quantity' => $request->input("quantity", 1),
+                'currency'          => 'EUR',
+                'status'            => 'pending',
+                'meta'              => [
+                    'ip' => request()->ip(),
+                    'user_agent' => request()->userAgent(),
+                ],
+            ]);
             $success = route('dashboard').'?session_id={CHECKOUT_SESSION_ID}';
             $cancel = $_SERVER['HTTP_REFERER'];
             return $request->user()
                 ->newSubscription($plan->id, $plan->stripe_plan)
                 ->allowPromotionCodes()
                 ->trialDays(!empty($plan->trial) ? $plan->trial+1 : 0)
-                ->quantity(3)
+                ->quantity($request->input("quantity", 1))
                 ->checkout([
                     'payment_method_types' => ['card', 'sofort', 'sepa_debit'],
                     'success_url'=>$success,
                     'cancel_url'=>$cancel,
+                    'metadata' => [
+                        "transaction_id" => $transaction->id
+                    ],
+                    'subscription_data' => [
+                        'metadata' => [
+                            "transaction_id" => $transaction->id
+                        ],
+                    ],
                 ]);
         }else{
             return redirect()->route('cards.index');

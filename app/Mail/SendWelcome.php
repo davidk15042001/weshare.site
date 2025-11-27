@@ -34,9 +34,10 @@ class SendWelcome extends Mailable
      * @return $this
      */
     public function build()
-    {   
-        return $this->from('Support@'.env('APP_DOMAIN','weshare.site'), env('APP_NAME', 'WeShare.Site'))
-            ->replyTo('Support@'.env('APP_DOMAIN','weshare.site'), env('APP_NAME', 'WeShare.Site'))
+    {
+        return $this
+            //->from('Support@'.env('APP_DOMAIN','weshare.site'), env('APP_NAME', 'WeShare.Site'))
+            //->replyTo('Support@'.env('APP_DOMAIN','weshare.site'), env('APP_NAME', 'WeShare.Site'))
             ->subject(translate('🎉 Welcome to').' '.env('APP_NAME', 'WeShare.Site').'!')
             ->view('emails.sendwelcome');
     }

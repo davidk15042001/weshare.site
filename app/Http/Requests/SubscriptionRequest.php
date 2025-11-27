@@ -24,7 +24,7 @@ class SubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'product' => 'required|exists:backoffice.products,uid'
+            'product' => 'required'
         ];
     }
 }

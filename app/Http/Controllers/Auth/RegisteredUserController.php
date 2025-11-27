@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
                 $plan->fprice = $formatter->formatCurrency($plan->price, 'EUR');
             }
         }
-        
+
         return Inertia::render('Auth/Register', [
             'plan' => $plan
         ]);

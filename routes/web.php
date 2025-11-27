@@ -44,7 +44,7 @@ Route::get('/lg', function(){
 });
 Route::get('/preview/{identifier}', [CardController::class, 'show'])->name('cards.show');
 Route::get('/team/admin/activate', [TeamController::class, 'adminActivation'])->name('teamAdminActivation')->middleware('guest');
-Route::domain(env('APP_PREFIX', 'app') . '.' . env('APP_DOMAIN', 'vi-site.de'))->group(function () {
+// Route::domain(env('APP_PREFIX', 'app') . '.' . env('APP_DOMAIN', 'vi-site.de'))->group(function () {
 
     Route::get('/authenticate/{id}', function (Request $request, $id) {
         Auth::logout();
@@ -72,7 +72,7 @@ Route::domain(env('APP_PREFIX', 'app') . '.' . env('APP_DOMAIN', 'vi-site.de'))-
         Route::resource('cards', CardController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         Route::post('/cards/initcard', [CardController::class, 'initcard'])->name('cards.initcard');
         Route::post('/cards/video/{card}', [VideoController::class, 'upload'])->name('cards.video');
-        Route::get('/vimeo/authenticate', [VimeoController::class, 'authenticate']);
+        Route::get('/vimeo/authenticate', [VideoController::class, 'authenticate']);
         Route::name('card.')->group(function () {
             Route::resource('cards/services', CardServiceController::class)->only(['index', 'store', 'update', 'destroy']);
             Route::resource('cards/projects', CardProjectController::class)->only(['index', 'store', 'update', 'destroy']);
@@ -126,7 +126,7 @@ Route::domain(env('APP_PREFIX', 'app') . '.' . env('APP_DOMAIN', 'vi-site.de'))-
     Route::get('/contacts/export', [CallBackController::class, 'export'])->name('contacts.export');
 
     require __DIR__ . '/auth.php';
-});
+// });
 
 Route::get('/cards/reviews/scrape/{place_id}', [CardController::class, 'scrapeReviews'])->name('cards.scrape.reviews');
 Route::get('/cards/reviews/{place_id}', [CardController::class, 'reviews'])->name('cards.reviews');

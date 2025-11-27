@@ -129,7 +129,7 @@ class CallBackController extends Controller
         $contacts->each(function($contact) {
             $contact->datetime = date('d-m-Y H:i', strtotime($contact->created_at));
         });
-     
+
         $headers = array(
             "Content-type" => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
@@ -137,7 +137,7 @@ class CallBackController extends Controller
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
         );
-        
+
         $columns = array('Name', 'Company', 'E-Mail', 'Phone', 'Date');
 
         $callback = function() use($contacts, $columns) {

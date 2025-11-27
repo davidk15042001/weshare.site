@@ -88,7 +88,7 @@ Route::middleware(['auth', 'prevent.back'])->group(function () {
 
     Route::get('account/setup', [AccountSetupController::class, 'create'])
                 ->name('account.setup');
-                
+
     Route::post('account/setup', [AccountSetupController::class, 'store'])
                 ->name('account.setup');
 
@@ -100,7 +100,7 @@ Route::middleware(['auth', 'prevent.back'])->group(function () {
 
     Route::delete('account/payments/{paymentmethod}', [PaymentMethodController::class, 'destroy'])
                 ->name('account.payments.destroy');
-                
+
     Route::get('account/payments/complete', [PaymentMethodController::class, 'store'])
                 ->name('account.payments.complete');
 

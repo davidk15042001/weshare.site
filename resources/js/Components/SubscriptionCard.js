@@ -2,7 +2,7 @@ import React from 'react';
 import { translate, getCookie } from '@/Helpers';
 import { Link } from '@inertiajs/inertia-react';
 import IconButton from '@/Components/IconButton';
-import parse from 'react-html-parser';
+import parse from 'html-react-parser'
 import { usePage } from "@inertiajs/inertia-react";
 
 export default function SubscriptionCard({interval, isPlan, plan, authenticated, className}) {

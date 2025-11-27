@@ -19,7 +19,7 @@ import Project from "../Components/Project";
 import Footer from "@/Components/Footer";
 import { Container, Button as FAButton, Link as FABLink } from 'react-floating-action-button';
 import ReactPlayer from 'react-player';
-import parse from 'react-html-parser';
+import parse from 'html-react-parser';
 import SocialIcon from "@/Components/SocialIcon";
 import MessageBox from "@/Components/MessageBox";
 import QRCode from 'react-qr-code';
@@ -43,7 +43,7 @@ export default function SitePreview({
     const coverRef = useRef();
     const aboutRef = useRef(null);
     const { domain, protocol } = usePage().props;
-    
+
 
     const [lang, setLang] = useState(getCookie('locale'));
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function SitePreview({
         }
     }, [lang]);
 
- 
+
     const [isMobile, setIsMobile] = useState(false);
     const [isDesktop, setIsDesktop] = useState(true);
     const [image, setImage] = useState(null);
@@ -66,7 +66,7 @@ export default function SitePreview({
     const [sortedSocials, setSortedSocials] = useState(socials);
     const [mainSocials, setMainSocials] = useState([]);
     const [isFabOpen, setIsFabOpen] = useState(false);
-    
+
    const [showFAB, setShowFAB] = useState(showContactButton || false);
     // const [showFAB, setShowFAB] = useState(false);
 
@@ -78,7 +78,7 @@ export default function SitePreview({
         if (auth.plan !== 'free' && isPublic) {
             const handleScroll = event => setShowFAB(window.scrollY >= 250);
             window.addEventListener('scroll', handleScroll);
-          
+
             return () => {
                 window.removeEventListener('scroll', handleScroll);
             };
@@ -87,17 +87,17 @@ export default function SitePreview({
 
     useEffect(() => {
         let timeout;
-    
+
         const handleScroll = () => {
             if (isFabOpen) {
-                setIsFabOpen(false); 
+                setIsFabOpen(false);
             }
-    
-           
+
+
             clearTimeout(timeout);
-            timeout = setTimeout(() => setIsFabOpen(true), 500); 
+            timeout = setTimeout(() => setIsFabOpen(true), 500);
         };
-    
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [isFabOpen]);
@@ -177,13 +177,13 @@ export default function SitePreview({
             //     card_id: card.id,
             //     type: "click",
             // });
-    
+
             await axios.post("/analytics", {
                 social,
                 card_id: card.id,
                 type: "share",
             });
-    
+
             switch (social) {
                 case "skype":
                     window.open(`skype:${url}`);
@@ -203,7 +203,7 @@ export default function SitePreview({
             console.error("Error in onOpenSocial:", error);
         }
     };
-    
+
     const whatsAppUrl = (value) => {
         return `https://api.whatsapp.com/send?phone=${number(value)}`;
     }
@@ -216,7 +216,7 @@ export default function SitePreview({
             //     card_id: card.id,
             //     type: "click",
             // });
-    
+
             await axios.post("/analytics", {
                 social,
                 card_id: card.id,
@@ -225,8 +225,8 @@ export default function SitePreview({
             console.log('tooo')
             window.open(url);
         }catch(error){
-            console.error("Error in onOpenSocial:", error); 
-        } 
+            console.error("Error in onOpenSocial:", error);
+        }
     };
 
     const initCallback = {
@@ -255,7 +255,7 @@ export default function SitePreview({
             toast(translate('Please accept the Privacy Policy'), 'error')
             return
         }
-        
+
         setSending(true);
 
         let modal = Modal.getInstance(document.getElementById("savecontact-modal"));
@@ -265,9 +265,9 @@ export default function SitePreview({
             .then(({ data }) => {
                 setCallBack(initCallback);
                 toast(translate("Contact Information successfully downloaded and sent to your email"));
-                
+
                 modal.hide();
-                
+
                 window.open(`/download${!isPublic ? "?identifier=" + card.identifier : ""}`);
 
                 setSending(false);
@@ -289,19 +289,19 @@ export default function SitePreview({
                 "instagram",
                 "tiktok",
             ];
-    
+
             var result = [], i, j;
-    
+
             for (i = 0; i < presetOrder.length; i++)
                 while (-1 != (j = keys.indexOf(presetOrder[i])))
                     result.push(keys.splice(j, 1)[0]);
-    
+
             return result.concat(keys);
         };
         const socs = sortSocials();
         const allSoc = sortSocials();
         const mainSoc = allSoc.splice(0, 5);
-    
+
         setSortedSocials(socs);
         setMainSocials(mainSoc);
     }, [socials]);
@@ -354,7 +354,7 @@ export default function SitePreview({
             }
             h();
             window.addEventListener("resize", h);
-    
+
             return () => {
                 window.removeEventListener("resize", h)
             }
@@ -381,9 +381,9 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                 <meta name="description" content={settings.metaDescription} />
             </Head>
             <div className={`p-0 pb-4 bg-white rounded-0 rounded-lg-20 ${container} position-relative`} style={{ transition: "width 0.2s" }}>
-                
-                {card.cover_type === 'photo' 
-                    ? <PhotoCover coverRef={coverRef} cardAvatar={card.avatar} isMobile={isMobile} isDesktop={isDesktop} url={card.cover} color={settings.cover_overlay} logo={card.logo} isPublic={isPublic} plan={auth.plan} /> 
+
+                {card.cover_type === 'photo'
+                    ? <PhotoCover coverRef={coverRef} cardAvatar={card.avatar} isMobile={isMobile} isDesktop={isDesktop} url={card.cover} color={settings.cover_overlay} logo={card.logo} isPublic={isPublic} plan={auth.plan} />
                     : <VideoCover coverRef={coverRef} cardAvatar={card.avatar} isMobile={isMobile} isDesktop={isDesktop} url={card.cover} color={settings.cover_overlay} logo={card.logo} isPublic={isPublic} plan={auth.plan} /> }
 
                 {/* <ProfilePicture
@@ -399,7 +399,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                     }}
                 />             */}
 
-            
+
                 <div className={`row m-0 mt-7 ${isDesktop ? "mt-lg-0" : ""}`}>
                     {/** Profile details */}
                     <div className={`profile-details pt-3 mb-3 ${isDesktop ? "col-lg-8" : ""}`}
@@ -1044,8 +1044,8 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                                     return <CustomCode key={c.id} title={c.title} source={c.source} src={c.codes} />
                                 })}
                             </div>
-                        )} 
-                      
+                        )}
+
                         {auth.plan !== "free" && (
                             <div className={`mt-5  ${isMobile ? "px-3" : ""}`}>
                                 <div className="fs-header fw-bolder mb-2 d-flex align-items-center justify-content-center">
@@ -1208,7 +1208,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                         )}
                     </div>
                 </div>
-      
+
                 {typeof preview !== "undefined" && preview && (
                     <div
                         className="position-fixed bg-white border-top px-3 pt-3 pb-4 w-100"
@@ -1234,7 +1234,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                 )}
                 {isPublic && auth.plan === 'free' ? <Footer /> : null}
 
-            
+
                 {(settings.imprint?.length > 0 || settings.privacyPolicy?.length > 0) && (
                     <div className={`d-flex align-items-center justify-content-center ${auth.plan === 'free' ? 'mt-10' : ''}`}>
                         <a href={settings.imprint} target="_blank">{translate('Imprint')}</a>
@@ -1277,7 +1277,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                         </FAButton>
                     </Container>
                 )}
-           
+
             </div>
             <div
                 className="modal fade"
@@ -1395,7 +1395,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                 aria-labelledby="savecontact-label"
                 aria-hidden="true"
             >
-               
+
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content bg-light border-light-gray-1 rounded-10">
                         <div className="modal-header bg-light ">
@@ -1465,7 +1465,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                                         htmlFor="accept">
                                         {translate("I accept and read the")}{" "}
                                                                                                     {
-                                                                                                        settings.privacyPolicy ?        
+                                                                                                        settings.privacyPolicy ?
                                                                                                             <a href={settings.privacyPolicy} target="_blank" rel="noopener noreferrer" className="text-primary">
                                                                                                                 {translate("Privacy Policy")}
                                                                                                        </a>
@@ -1490,7 +1490,7 @@ console.log('settings.privacyPolicy:', settings.privacyPolicy);
                     </div>
                 </div>
             </div>
-           
+
             {/* <MessageBox color={settings.cover_overlay} avatar={card.avatar} user={card.user_id}/> */}
         </div>
     );
@@ -1508,7 +1508,7 @@ const CustomCode = ({title, src, source}) => {
                     <div className='text-center' style={{width: '100%'}}>
                         {parse(src, {
                             transform: (node, index) => {
-                               
+
                                 switch(node.name) {
                                     case 'iframe':
                                         let attribs = node.attribs;
@@ -1530,7 +1530,7 @@ const CustomCode = ({title, src, source}) => {
                                         // append the script tag to the body
                                         document.body.appendChild(script);
                                         break;
-                                    case 'img': 
+                                    case 'img':
                                         let props = node.attribs;
                                         delete props.style;
                                         return <img {...props} className="custom-code-img" id="custom-code-img" />;

@@ -39,7 +39,7 @@ export default function Welcome(props) {
                         <div className='form-group'>
                             <Input type="email" name="email" placeholder={translate('Email')} value={data.email} handleChange={onHandleChange} className="mb-2" />
                             <Input type="password" name="password" placeholder={translate('Password')} value={data.password} handleChange={onHandleChange} className="mb-1" />
-                            <Link 
+                            <Link
                                 href={route('password.request')}
                                 className="underline text-sm text-black-400 ms-3"
                                 style={{fontSize: '12px'}}>
@@ -69,7 +69,7 @@ export default function Welcome(props) {
                         {/* <Button type="submit" icon='../../../assets/svg/facebook_white.svg' className="btn btn-facebook text-white">{translate('Continue with Facebook')}</Button>
                         <Button type="submit" icon='../../../assets/svg/apple_white.svg' className="btn btn-dark">{translate('Continue with Apple')}</Button> */}
                     </div>
-                    <Link 
+                    <Link
                         href={route('site.plans')}
                         className="text-black-400 text-decoration-none d-flex align-items-end justify-content-center"
                         style={{

@@ -59,7 +59,7 @@ export default function Register(props) {
                         <Input type="email" name="email" placeholder={translate('Email')} value={data.email} handleChange={onHandleChange} className="mb-2" />
                         <Input type="password" name="password" placeholder={translate('Password')} value={data.password} handleChange={onHandleChange} className="mb-2" />
                         <Input type="password" name="password_confirmation" placeholder={translate('Confirm Password')} value={data.password_confirmation} handleChange={onHandleChange} className="mb-2" />
-                        
+
                         <label className="d-flex items-center">
                             <Checkbox name="terms" value="1" handleChange={onHandleChange} checked={data.terms}/>
                             <div className="ms-2 text-black-400 lh-sm" style={{fontSize:'11px'}}>{translate('By signing-up, you are accepting our terms of use, privacy policies and Cookie policy.')}</div>
@@ -89,7 +89,7 @@ export default function Register(props) {
                     <Button type="submit" icon='/assets/svg/facebook_white.svg' className="btn btn-facebook text-white">{translate('Continue with Facebook')}</Button> */}
                     {/* <Button type="submit" icon='/assets/svg/apple_white.svg' className="btn btn-dark">{translate('Continue with Apple')}</Button> */}
                 </div>
-                <Link 
+                <Link
                     href={route('login')}
                     className="text-black-400 text-decoration-none d-flex align-items-end justify-content-center"
                     style={{

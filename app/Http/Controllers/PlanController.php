@@ -33,7 +33,7 @@ class PlanController extends Controller
                 "email" => $request->user()->email,
                 "plan" => 'free'
             ];
-            
+
             Mail::to($request->user()->email)->send(new SendWelcome($data));
             return redirect()->route('dashboard');
         }

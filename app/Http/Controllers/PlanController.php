@@ -46,7 +46,12 @@ class PlanController extends Controller
                     'cancel_url'=>$cancel,
                     'metadata' => [
                         "transaction_id" => $transaction->id
-                    ]
+                    ],
+                    'subscription_data' => [
+                        'metadata' => [
+                            "transaction_id" => $transaction->id
+                        ],
+                    ],
                 ]);
         }else{
             $data = [

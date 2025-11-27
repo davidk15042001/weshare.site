@@ -3863,3 +3863,23 @@ Content-Transfer-Encoding: quoted-printable
 [stacktrace]
 #0 {main}
 "} 
+[2025-11-27 20:31:33] local.ERROR: Cannot redeclare translate() (previously declared in C:\Laravel projects\weshare\app\helpers.php:5) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare translate() (previously declared in C:\\Laravel projects\\weshare\\app\\helpers.php:5) at C:\\Laravel projects\\weshare\\app\\helpers.php:42)
+[stacktrace]
+#0 {main}
+"} 
+[2025-11-27 20:32:29] local.ERROR: Cannot redeclare translate() (previously declared in C:\Laravel projects\weshare\app\helpers.php:5) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare translate() (previously declared in C:\\Laravel projects\\weshare\\app\\helpers.php:5) at C:\\Laravel projects\\weshare\\app\\helpers.php:42)
+[stacktrace]
+#0 {main}
+"} 
+[2025-11-27 20:33:29] local.ERROR: Cannot redeclare translate() (previously declared in C:\Laravel projects\weshare\app\helpers.php:5) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare translate() (previously declared in C:\\Laravel projects\\weshare\\app\\helpers.php:5) at C:\\Laravel projects\\weshare\\app\\helpers.php:42)
+[stacktrace]
+#0 {main}
+"} 
+[2025-11-27 20:34:30] local.ERROR: Cannot redeclare translate() (previously declared in C:\Laravel projects\weshare\app\helpers.php:5) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare translate() (previously declared in C:\\Laravel projects\\weshare\\app\\helpers.php:5) at C:\\Laravel projects\\weshare\\app\\helpers.php:42)
+[stacktrace]
+#0 {main}
+"} 
+[2025-11-27 20:35:29] local.ERROR: Cannot redeclare translate() (previously declared in C:\Laravel projects\weshare\app\helpers.php:5) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare translate() (previously declared in C:\\Laravel projects\\weshare\\app\\helpers.php:5) at C:\\Laravel projects\\weshare\\app\\helpers.php:42)
+[stacktrace]
+#0 {main}
+"} 

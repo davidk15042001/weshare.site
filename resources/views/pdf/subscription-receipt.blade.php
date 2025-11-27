@@ -1,337 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Rechnung — LokalXperten</title>
-  <style>
-        /* styles.css
-        Fixed A4-like invoice styling. Use print media when needed.
-        */
+    <meta charset="utf-8">
+    <title>Rechnung</title>
 
-        /* Page container sized for A4 portrait at 96dpi-ish; good for screen & print scaling */
-        :root{
-        --page-width: 794px; /* roughly 210mm at 96dpi */
-        --page-padding: 44px;
-        --muted: #666b6f;
-        --accent: #0f2b60; /* dark blue similar to PDF headings */
-        --border: #e4e7eb;
-        --mono: "Helvetica Neue", Arial, sans-serif;
-        }
-
-        /* Page */
+    <style>
         body {
-        font-family: var(--mono);
-        background: #f6f7f9;
-        padding: 32px;
-        display: flex;
-        justify-content: center;
-        color: #1b1b1b;
-        line-height: 1.4;
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 12px;
+            color: #1b1b1b;
+            margin: 0;
+            padding: 0;
         }
 
-        .page{
-        width: var(--page-width);
-        background: white;
-        box-shadow: 0 6px 18px rgba(20,20,30,0.08);
-        padding: var(--page-padding);
-        box-sizing: border-box;
-        margin-bottom: 24px;
+        .page {
+            width: 100%;
+            padding: 25px 35px;
+            box-sizing: border-box;
         }
 
-        /* Header */
-        .invoice-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 24px;
-        margin-bottom: 18px;
+        h1, h2, h3, h4 {
+            margin: 0;
+            padding: 0;
         }
 
-        .branding {
-        display: flex;
-        gap: 18px;
-        align-items: flex-start;
+        .text-right { text-align: right; }
+        .text-left { text-align: left; }
+        .mt-10 { margin-top: 10px; }
+        .mt-20 { margin-top: 20px; }
+        .mb-5  { margin-bottom: 5px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-15 { margin-bottom: 15px; }
+        .mb-20 { margin-bottom: 20px; }
+
+        /* Safe Table Layout */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bordered td,
+        .bordered th {
+            border: 1px solid #ddd;
+            padding: 6px;
+        }
+
+        /* Header styling */
+        .branding-table td {
+            vertical-align: top;
         }
 
         .logo {
-        width: 110px;
-        height: auto;
-        object-fit: contain;
-        border-radius: 4px;
-        background: #fff;
-        border: 1px solid var(--border);
-        padding: 6px;
+            width: 90px;
+            height: auto;
         }
 
-        .company {
-        font-size: 13px;
-        color: var(--muted);
-        }
-
-        .company-name {
-        margin: 0;
-        font-size: 16px;
-        color: var(--accent);
-        font-weight: 700;
-        letter-spacing: 0.1px;
-        }
-
-        /* invoice meta area on the right */
-        .invoice-meta {
-        text-align: right;
-        font-size: 13px;
-        color: var(--muted);
-        min-width: 260px;
-        }
-
-        .meta-table {
-        border-collapse: collapse;
-        margin-top: 6px;
-        width: 100%;
-        font-size: 13px;
+        .company-info {
+            font-size: 12px;
+            color: #555;
         }
 
         .meta-table td {
-        padding: 3px 0;
+            padding: 3px 0;
         }
 
-        .meta-table tr td:first-child {
-        color: #333;
-        font-weight: 600;
-        padding-right: 8px;
+        .meta-label {
+            font-weight: bold;
+            color: #333;
+            width: 120px;
         }
 
-        /* Body titles */
-        .title {
-        margin: 6px 0 10px 0;
-        color: var(--accent);
-        font-size: 22px;
-        letter-spacing: 0.2px;
-        }
-
-        /* content paragraphs */
-        .greeting {
-        margin: 8px 0 4px 0;
-        font-weight: 600;
-        }
-
-        .lead {
-        margin: 0 0 14px 0;
-        color: #222;
-        font-size: 14px;
-        }
-
-        /* Items Table */
-        .items-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 12px;
-        font-size: 13px;
-        }
-
-        .items-table thead th {
-        text-align: left;
-        padding: 10px 8px;
-        border-bottom: 2px solid var(--border);
-        font-weight: 700;
-        color: #222;
-        background: transparent;
+        /* Items table */
+        .items-table th {
+            background: #f2f2f2;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            padding: 8px;
         }
 
         .items-table td {
-        padding: 10px 8px;
-        border-bottom: 1px solid var(--border);
-        vertical-align: top;
+            border: 1px solid #ccc;
+            padding: 8px;
         }
 
-        .col-pos { width: 5%; }
-        .col-desc { width: 60%; }
-        .col-qty { width: 8%; text-align: right; }
-        .col-unit { width: 12%; text-align: right; }
-        .col-total { width: 15%; text-align: right; font-weight: 600; }
-
-        /* Totals block aligned to right */
-        .totals {
-        width: 320px;
-        margin-left: auto;
-        margin-top: 12px;
-        border-top: 1px solid var(--border);
-        padding-top: 8px;
-        font-size: 14px;
+        /* Totals */
+        .totals-table {
+            width: 300px;
+            float: right;
+            margin-top: 10px;
         }
 
-        .totals-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 4px;
-        color: var(--muted);
+        .totals-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
         }
 
-        .totals-row.grand-total {
-        font-size: 16px;
-        color: #111;
-        font-weight: 700;
-        }
-
-        /* Notes and bank details */
-        .notes {
-        margin-top: 18px;
-        font-size: 13px;
-        color: var(--muted);
-        }
-
-        .notes h3 {
-        margin: 0 0 6px 0;
-        font-size: 14px;
-        color: var(--accent);
-        }
-
-        .bank {
-        margin-top: 6px;
-        font-weight: 600;
-        color: #111;
+        .totals-table .label {
+            font-weight: bold;
         }
 
         /* Footer */
-        .invoice-footer {
-        margin-top: 28px;
-        padding-top: 12px;
-        border-top: 1px dashed var(--border);
-        font-size: 12px;
-        color: var(--muted);
+        .footer {
+            margin-top: 40px;
+            font-size: 11px;
+            color: #777;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+            text-align: center;
         }
-
-        /* Print-friendly adjustments */
-        @media print {
-        body { background: white; padding: 0; }
-        .page { box-shadow: none; margin: 0; width: 100%; padding: 28mm; }
-        .logo { background: none; border: none; padding: 0; }
-        }
-
-  </style>
+    </style>
 </head>
+
 <body>
-  <div class="page">
-    <header class="invoice-header">
-      <div class="branding">
-        <!-- Place your logo file at assets/logo.png or update src -->
-        <img src="{{asset("assets/images/weShareSite.png")}}" alt="{{config("app.name")}} Logo" class="logo" />
-        <div class="company">
-          <h1 class="company-name">{{ config("app.name")}}</h1>
-          <address>
-            {!! config("services.company.address") !!}
-          </address>
-          <div class="contact">
-            Email: <a href="mailto:{{config("mail.support.address")}}">{{ config("mail.support.address")}}</a><br/>
-            USt-IdNr.: {{config("services.company.tax_id")}}
-          </div>
-        </div>
-      </div>
+<div class="page">
 
-      <div class="invoice-meta">
-        <div class="bill-to">
-          <strong>Abs.:</strong> {{config("app.name")}}, {{config("services.company.address")}}
-          <div class="client">
-            <strong>An:</strong><br/>
-            <span class="client-name">{{ $transaction->user->name}}</span><br/>
-           {!! $transaction->user->address !!}
-          </div>
-        </div>
+    <!-- HEADER -->
+    <table class="branding-table">
+        <tr>
+            <td width="120">
+                <img src="{{ public_path('assets/images/weShareSite.png') }}" class="logo" alt="Logo">
+            </td>
 
-        <table class="meta-table" aria-hidden="true">
-          <tr>
-            <td><strong>Rechnungs-Nr.</strong></td>
-            <td>{{$transaction->transaction_code}}</td>
-          </tr>
-          <tr>
-            <td><strong>Kunden-Nr.</strong></td>
-            <td>{{$transaction->user->id}}</td>
-          </tr>
-          <tr>
-            <td><strong>Datum</strong></td>
-            <td>{{date("d.m.Y", strtotime($transaction->updated_at))}}</td>
-          </tr>
-          <tr>
-            <td><strong>Leistung</strong></td>
-            <td>{{translate($transaction->transaction_source)}}</td>
-          </tr>
-        </table>
-      </div>
-    </header>
+            <td class="company-info">
+                <h2 style="color:#0f2b60; font-size:18px; margin-bottom:5px;">
+                    {{ config('app.name') }}
+                </h2>
 
-    <main class="invoice-body">
-      <h2 class="title">Rechnung</h2>
+                {!! config('services.company.address') !!}<br>
+                Email: {{ config('mail.support.address') }}<br>
+                USt-IdNr.: {{ config('services.company.tax_id') }}
+            </td>
 
-      <p class="greeting">
-        Sehr geehrte {{$transaction->user->name}},
-      </p>
+            <td class="text-right company-info">
+                <strong>Abs.:</strong> {{ config('app.name') }}<br>
+                {!! config('services.company.address') !!}<br><br>
 
-      <p class="lead">
-        Vielen Dank, dass Sie unseren Service genutzt haben. Hier ist die Rechnung für Ihren Kauf.
-      </p>
+                <strong>An:</strong><br>
+                {{ $transaction->user->name }}<br>
+                {!! $transaction->user->address !!}
+            </td>
+        </tr>
+    </table>
 
-      <section class="items">
-        <table class="items-table" role="table">
-          <thead>
+    <br>
+
+    <!-- INVOICE META -->
+    <table class="meta-table mt-10">
+        <tr>
+            <td class="meta-label">Rechnungs-Nr.:</td>
+            <td>{{ $transaction->transaction_code }}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Kunden-Nr.:</td>
+            <td>{{ $transaction->user->id }}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Datum:</td>
+            <td>{{ date('d.m.Y', strtotime($transaction->updated_at)) }}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Leistung:</td>
+            <td>{{ translate($transaction->transaction_source) }}</td>
+        </tr>
+    </table>
+
+    <h2 class="mt-20" style="color:#0f2b60;">Rechnung</h2>
+
+    <p class="mt-10">
+        Sehr geehrte/r {{ $transaction->user->name }},<br><br>
+        Vielen Dank, dass Sie unseren Service genutzt haben.
+        Hier ist die Rechnung für Ihren Kauf.
+    </p>
+
+    <!-- ITEMS TABLE -->
+    <table class="items-table mt-20">
+        <thead>
             <tr>
-              <th class="col-pos">Pos.</th>
-              <th class="col-desc">Dienstleistung</th>
-              <th class="col-qty">Menge</th>
-              <th class="col-unit">Preis pro Einheit</th>
-              <th class="col-total">Total</th>
+                <th width="40">Pos.</th>
+                <th>Dienstleistung</th>
+                <th width="60">Menge</th>
+                <th width="100">Preis</th>
+                <th width="100">Total</th>
             </tr>
-          </thead>
-          <tbody>
+        </thead>
+
+        <tbody>
             <tr>
-              <td class="col-pos">1</td>
-              <td class="col-desc">
-                {!! $transaction->narration !!}
-              </td>
-              <td class="col-qty">{{$transaction->quantity}}</td>
-              <td class="col-unit">{{$transaction->currency}}{{$transaction->plan->price}}</td>
-              <td class="col-total">{{$transaction->currency}}{{$transaction->plan->price * $transaction->quantity}}</td>
+                <td>1</td>
+                <td>{!! $transaction->narration !!}</td>
+                <td>{{ $transaction->quantity }}</td>
+                <td>{{ $transaction->currency }}{{ $transaction->plan->price }}</td>
+                <td>{{ $transaction->currency }}{{ $transaction->plan->price * $transaction->quantity }}</td>
             </tr>
-          </tbody>
-        </table>
+        </tbody>
+    </table>
 
-        <div class="totals">
-          <div class="totals-row">
-            <span>Summe exkl. MwSt.</span>
-            <span>{{$transaction->currency}}{{$transaction->plan->price * $transaction->quantity}}</span>
-          </div>
-          <div class="totals-row">
-            <span>MwSt</span>
-            <span>{{$transaction->currency}}{{$transaction->vat}}</span>
-          </div>
-          <div class="totals-row grand-total">
-            <span>Gesamtbetrag</span>
-            <span>{{$transaction->currency}}{{($transaction->plan->price * $transaction->quantity) + $transaction->vat}}</span>
-          </div>
-        </div>
-      </section>
+    <!-- TOTALS -->
+    <table class="totals-table">
+        <tr>
+            <td class="label">Summe exkl. MwSt.</td>
+            <td>{{ $transaction->currency }}{{ $transaction->plan->price * $transaction->quantity }}</td>
+        </tr>
+        <tr>
+            <td class="label">MwSt.</td>
+            <td>{{ $transaction->currency }}{{ $transaction->vat }}</td>
+        </tr>
+        <tr>
+            <td class="label">Gesamtbetrag</td>
+            <td><strong>{{ $transaction->currency }}{{ ($transaction->plan->price * $transaction->quantity) + $transaction->vat }}</strong></td>
+        </tr>
+    </table>
 
-      {{-- <section class="notes">
-        <h3>Anmerkung</h3>
-        <p>
-          Die MwSt. ist im Leistungsempfänger Drittland abzuführen.
-          Die Rechnung ist auf das Geschäftskonto der Shuziren UG (haftungsbeschränkt) bei der
-          Banking Circle S.A. zu leisten:
-        </p>
-        <p class="bank">
-          IBAN: <strong>DE13 2022 0800 0056 3004 82</strong>, BIC: <strong>SXPYDEHHXXX</strong>
-        </p>
-      </section> --}}
-    </main>
+    <div style="clear: both;"></div>
 
-    <footer class="invoice-footer">
-      {{-- <p>
-        Shuziren UG (haftungsbeschränkt) · Im Raiser 17, 70437 Stuttgart, Deutschland ·
-        Geschäftsführer: Dennis Luo · Telefon: +49 152 014 888 88 ·
-        E-Mail: <a href="mailto:info@shuziren.tech">info@shuziren.tech</a> ·
-        USt-IdNr.: DE458166039 · IBAN: DE13 2022 0800 0056 3004 82, BIC: SXPYDEHHXXX · Banking Circle S.A. - German Branch
-      </p> --}}
-    </footer>
-  </div>
+    <!-- FOOTER -->
+    <div class="footer">
+        {{ config('app.name') }} – {{ config('services.company.address') }}
+        | Email: {{ config('mail.support.address') }}
+    </div>
+
+</div>
 </body>
 </html>

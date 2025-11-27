@@ -15,6 +15,7 @@ use App\Mail\SendWelcome;
 use App\Models\Transaction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class DashboardController extends Controller
@@ -81,11 +82,12 @@ class DashboardController extends Controller
                     $pdf = Pdf::loadView('pdf.subscription-receipt', [
                         'transaction' => $trans
                     ]);
-                    $pdfPath = storage_path("app/invoices/invoice_{$user->id}.pdf");
+                    $pdfPath = storage_path("app/private/invoices/invoice_{$user->id}.pdf");
                     $pdf->save($pdfPath);
+                    info("PDF Generated", [$pdfPath]);
                     Mail::to([$request->user()->email, config("mail.support.address")])->send(new InvoiceMail($trans, $pdfPath));
                 }catch(Exception $ex){
-
+                    Log::info("Error verifying stripe", [$ex]);
                 }
             }
         }
